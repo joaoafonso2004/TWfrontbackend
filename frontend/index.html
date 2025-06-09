@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestão de Alunos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Gestão de Alunos</h1>
+
+  <form id="aluno-form">
+    <input type="hidden" id="aluno-id">
+    <input type="text" id="nome" placeholder="Nome do aluno" required>
+    <input type="text" id="apelido" placeholder="Apelido" required>
+    <input type="text" id="apelido" placeholder="Apelido" required>
+    <input type="number" id="idade" placeholder="Idade" required>
+    <select id="curso" required>
+      <option value="">Selecione o curso</option>
+    </select>
+    <button type="submit" id="salvar-btn">Adicionar</button>
+    <button type="button" id="cancelar-btn" class="cancelar">Cancelar</button>
+    <button type="button" id="apagar-btn" class="acao apagar" style="display:none;">Apagar</button>
+  </form>
+
+  <table id="alunos-table">
+    <thead>
+      <tr>
+        <th>CC</th>
+        <th>Nome</th>
+        <th>Apelido</th>
+        <th>Idade</th>
+        <th>Curso</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Alunos serão carregados aqui -->
+    </tbody>
+  </table>
+
+  <h1>Gestão de Cursos</h1>
+  <form id="curso-form">
+    <input type="hidden" id="curso-id">
+    <input type="number" id="curso_id" placeholder="ID do curso" required>
+    <input type="text" id="nome-curso" placeholder="Nome do curso" required>
+    <button type="submit" id="salvar-curso-btn">Adicionar</button>
+    <button type="button" id="cancelar-curso-btn" class="cancelar">Cancelar</button>
+    <button type="button" id="apagar-curso-btn" class="acao apagar" style="display:none;">Apagar</button>
+  </form>
+
+  <table id="cursos-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome do Curso</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Cursos serão carregados aqui -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>

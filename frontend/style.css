@@ -1,0 +1,251 @@
+/* Minimal Modern UI para Gestão de Alunos e Cursos */
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f6f8fa;
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2.5rem 0 1.5rem 0;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  color: #2563eb;
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px #0001;
+  padding: 1.2rem 1rem;
+  margin: 0 auto 2rem auto;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  align-items: end;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select,
+form button {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+  height: 42px;
+  font-size: 1rem;
+}
+
+form button {
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  form {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0.4rem;
+    max-width: 98vw;
+  }
+  form input[type="text"],
+  form input[type="number"],
+  form select,
+  form button {
+    height: 40px;
+  }
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  padding: 0.7rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+  /* NOVO: largura igual para todos os campos */
+  flex: 1 1 150px;
+  min-width: 150px;
+  max-width: 180px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.7rem 1.3rem;
+  border: none;
+  border-radius: 6px;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+button:hover, .acao:hover {
+  background: #4338ca;
+}
+
+button.cancelar, .cancelar {
+  background: #e5e7eb;
+  color: #222;
+  margin-left: 0.4rem;
+}
+
+button.cancelar:hover, .cancelar:hover {
+  background: #cbd5e1;
+}
+
+.acao {
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.2rem;
+  background: #f3f4f6;
+  color: #222;
+  transition: background 0.18s;
+}
+
+.acao.editar {
+  background: #22d3ee;
+  color: #055160;
+}
+
+.acao.editar:hover {
+  background: #0ea5e9;
+  color: #fff;
+}
+
+.acao.apagar {
+  background: #fca5a5;
+  color: #991b1b;
+}
+
+.acao.apagar:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0001;
+  margin: 0 auto 2.5rem auto;
+  max-width: 900px;
+  overflow: hidden;
+}
+
+th, td {
+  border-bottom: 1px solid #f1f1f1;
+  padding: 0.9rem 0.6rem;
+  text-align: left;
+  font-size: 1rem;
+}
+
+th {
+  background: #f3f4f6;
+  color: #6366f1;
+  font-weight: 600;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: #f1f5f9;
+  transition: background 0.18s;
+}
+
+th:last-child,
+td:last-child {
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  form, table {
+    max-width: 98vw;
+  }
+  form {
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: stretch;
+    padding: 1rem 0.4rem;
+  }
+  input[type="text"],
+  input[type="number"],
+  select,
+  button, .acao {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 40px;
+  }
+  th, td {
+    font-size: 0.95em;
+    padding: 0.6rem 0.3rem;
+  }
+  button, .acao {
+    font-size: 0.95em;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+  table, thead, tbody, th, td, tr {
+    font-size: 0.93em;
+  }
+  form {
+    padding: 0.5rem 0.1rem;
+  }
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.form-actions button {
+  width: auto;
+  min-width: 110px;
+  height: 42px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .form-actions button {
+    width: 100%;
+    min-width: 0;
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "mock-server",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "json-server --watch ../mock-data/bd.json --port 3000"
+    },
+    "dependencies": {
+      "json-server": "^0.17.3"
+    }
+  }
+  

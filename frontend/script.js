@@ -21,23 +21,21 @@ const tabela = document.getElementById('alunos-table').querySelector('tbody');
 // ==========================
 const cursoForm = document.getElementById('curso-form');
 const cursoIdInput = document.getElementById('curso-id');
-const cursoIdNumberInput = document.getElementById('curso_id'); // Campo numérico do ID do curso
+const cursoIdNumberInput = document.getElementById('curso_id'); // ID do curso
 const nomeCursoInput = document.getElementById('nome-curso');
 const salvarCursoBtn = document.getElementById('salvar-curso-btn');
 const cancelarCursoBtn = document.getElementById('cancelar-curso-btn');
 const apagarCursoBtn = document.getElementById('apagar-curso-btn');
 const cursosTabela = document.getElementById('cursos-table').querySelector('tbody');
 
-// ==========================
+
 // Estado de edição
-// ==========================
 let editando = false;
 let editandoCurso = false;
 let cursosCache = []; // Guardar cursos localmente para vincular nome do curso ao aluno
 
-// ==========================
+
 // Preencher dropdown de cursos no formulário de aluno
-// ==========================
 function preencherSelectCursos(cursos) {
     const select = document.getElementById('curso');
     select.innerHTML = '<option value="">Selecione o curso</option>';
@@ -52,9 +50,8 @@ function preencherSelectCursos(cursos) {
     });
 }
 
-// ==========================
+
 // Carregar lista de cursos na tabela
-// ==========================
 async function carregarCursos() {
     cursosTabela.innerHTML = '<tr><td colspan="3">Carregando...</td></tr>';
     try {
@@ -90,9 +87,8 @@ async function carregarCursos() {
     }
 }
 
-// ==========================
+
 // Carregar lista de alunos na tabela
-// ==========================
 async function carregarAlunos() {
     tabela.innerHTML = '<tr><td colspan="6">Carregando...</td></tr>';
     try {
@@ -105,7 +101,7 @@ async function carregarAlunos() {
             return;
         }
 
-        // Criar uma linha para cada aluno
+        // Percorre a lista de alunos e cria uma linha para cada um
         alunos.forEach(aluno => {
             const {
                 cc = '',
@@ -120,7 +116,7 @@ async function carregarAlunos() {
             const cursoObj = cursosCache.find(c => String(c.curso_id) === String(curso_id));
             const nomeCurso = cursoObj ? (cursoObj.nomeDoCurso || cursoObj.nome || curso_id) : curso_id;
 
-            const tr = document.createElement('tr');
+            const tr = document.createElement('tr'); 
             tr.innerHTML = `
                 <td>${cc}</td>
                 <td>${nome}</td>
@@ -137,16 +133,15 @@ async function carregarAlunos() {
                         data-curso="${curso_id}">Editar</button>
                 </td>
             `;
-            tabela.appendChild(tr);
+            tabela.appendChild(tr); 
         });
     } catch (e) {
         tabela.innerHTML = '<tr><td colspan="6">Erro ao carregar alunos.</td></tr>';
     }
 }
 
-// ==========================
+
 // Submissão do formulário de aluno
-// ==========================
 form.onsubmit = async (e) => {
     e.preventDefault();
 
@@ -155,37 +150,33 @@ form.onsubmit = async (e) => {
     const idade = parseInt(idadeInput.value, 10);
     const curso = document.getElementById('curso').value;
 
-    // Validação básica
-    if (!nome || !apelido || isNaN(idade) || !curso) return;
+    if (!nome || !apelido || isNaN(idade) || !curso) return; // Verifica se os campos estão preenchidos
 
-    const alunoData = { nome, apelido, idade, curso };
+    const alunoData = { nome, apelido, idade, curso }; // Cria o objeto com os dados do aluno
+    const method = editando && idInput.value ? 'PUT' : 'POST'; // Define o método HTTP correto
+    const url = editando && idInput.value ? `${API_URL}/${idInput.value}` : API_URL; // Define a URL correta para a requisição
 
-    // Se estiver editando, envia PUT, senão envia POST
-    const method = editando && idInput.value ? 'PUT' : 'POST';
-    const url = editando && idInput.value ? `${API_URL}/${idInput.value}` : API_URL;
-
-    await fetch(url, {
+    await fetch(url, { // Envia a requisição para o back-end
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(alunoData)
     });
 
     cancelarEdicao();
-    carregarAlunos();
+    carregarAlunos(); 
 };
 
-// ==========================
+
 // Submissão do formulário de curso
-// ==========================
 cursoForm.onsubmit = async (e) => {
     e.preventDefault();
 
-    const curso_id = cursoIdNumberInput.value;
-    const nome = nomeCursoInput.value.trim();
+    const curso_id = cursoIdNumberInput.value; 
+    const nome = nomeCursoInput.value.trim(); 
 
-    if (!curso_id || !nome) return;
+    if (!curso_id || !nome) return; // Verifica se os campos estão preenchidos
 
-    const cursoData = { curso_id, nomeDoCurso: nome };
+    const cursoData = { curso_id, nomeDoCurso: nome }; 
 
     const method = editandoCurso && cursoIdInput.value ? 'PUT' : 'POST';
     const url = editandoCurso && cursoIdInput.value ? `${CURSOS_API_URL}/${cursoIdInput.value}` : CURSOS_API_URL;
@@ -200,9 +191,8 @@ cursoForm.onsubmit = async (e) => {
     carregarCursos();
 };
 
-// ==========================
+
 // Eventos dos botões de editar/apagar alunos
-// ==========================
 tabela.onclick = async (e) => {
     const btn = e.target;
     if (!btn.classList.contains('editar')) return;
@@ -221,9 +211,8 @@ tabela.onclick = async (e) => {
     apagarBtn.style.display = 'inline-block';
 };
 
-// ==========================
+
 // Eventos dos botões de editar/apagar cursos
-// ==========================
 cursosTabela.onclick = async (e) => {
     const btn = e.target;
     if (!btn.classList.contains('editar')) return;
@@ -239,9 +228,8 @@ cursosTabela.onclick = async (e) => {
     apagarCursoBtn.style.display = 'inline-block';
 };
 
-// ==========================
+
 // Cancelar edição (aluno)
-// ==========================
 cancelarBtn.onclick = cancelarEdicao;
 
 function cancelarEdicao() {
@@ -253,9 +241,8 @@ function cancelarEdicao() {
     apagarBtn.style.display = 'none';
 }
 
-// ==========================
+
 // Cancelar edição (curso)
-// ==========================
 cancelarCursoBtn.onclick = cancelarEdicaoCurso;
 
 function cancelarEdicaoCurso() {
@@ -267,9 +254,7 @@ function cancelarEdicaoCurso() {
     apagarCursoBtn.style.display = 'none';
 }
 
-// ==========================
-// Apagar aluno atual (formulário)
-// ==========================
+// Apagar aluno atual
 apagarBtn.onclick = async () => {
     if (!idInput.value) return;
     if (confirm('Deseja realmente apagar este aluno?')) {
@@ -279,9 +264,8 @@ apagarBtn.onclick = async () => {
     }
 };
 
-// ==========================
+
 // Apagar curso atual (formulário)
-// ==========================
 apagarCursoBtn.onclick = async () => {
     if (!cursoIdInput.value) return;
     if (confirm('Deseja realmente apagar este curso?')) {
@@ -291,10 +275,9 @@ apagarCursoBtn.onclick = async () => {
     }
 };
 
-// ==========================
-// Inicialização: carregar cursos antes de alunos
-// ==========================
-(async () => {
+
+// Carregar cursos antes de alunos
+(async () => { // garante que os cursos carregam primeiro
     await carregarCursos();
     await carregarAlunos();
 })();
